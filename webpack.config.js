@@ -37,6 +37,13 @@ const config = {
             ]
         })
     ],
+    // Add this to suppress ytsr dynamic require warning
+    ignoreWarnings: [
+        {
+            module: /node_modules\/ytsr/,
+            message: /Critical dependency/
+        }
+    ],
     devtool: 'nosources-source-map',
     infrastructureLogging: {
         level: 'log'
