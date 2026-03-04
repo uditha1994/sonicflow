@@ -1,0 +1,217 @@
+{
+    "name": "sonicflow",
+    "displayName": "SonicFlow",
+    "description": "🎵 Embedded music player for VS Code - Local files, YouTube, and smart vibe recommendations",
+    "version": "1.0.0",
+    "publisher": "sonicflow",
+    "engines": {
+        "vscode": "^1.85.0"
+    },
+    "categories": [
+        "Other"
+    ],
+    "keywords": [
+        "music",
+        "player",
+        "youtube",
+        "playlist",
+        "productivity"
+    ],
+    "icon": "media/icons/sonicflow.png",
+    "activationEvents": [
+        "onCommand:sonicflow.openPlayer",
+        "onCommand:sonicflow.playPause",
+        "onCommand:sonicflow.browseLocal"
+    ],
+    "main": "./dist/extension.js",
+    "contributes": {
+        "commands": [
+            {
+                "command": "sonicflow.openPlayer",
+                "title": "SonicFlow: Open Player",
+                "icon": "$(music)"
+            },
+            {
+                "command": "sonicflow.playPause",
+                "title": "SonicFlow: Play/Pause"
+            },
+            {
+                "command": "sonicflow.next",
+                "title": "SonicFlow: Next Track"
+            },
+            {
+                "command": "sonicflow.previous",
+                "title": "SonicFlow: Previous Track"
+            },
+            {
+                "command": "sonicflow.browseLocal",
+                "title": "SonicFlow: Browse Local Music"
+            },
+            {
+                "command": "sonicflow.searchYouTube",
+                "title": "SonicFlow: Search YouTube Music"
+            },
+            {
+                "command": "sonicflow.showPlaylist",
+                "title": "SonicFlow: Show Playlists"
+            },
+            {
+                "command": "sonicflow.createPlaylist",
+                "title": "SonicFlow: Create New Playlist"
+            },
+            {
+                "command": "sonicflow.toggleVibeMode",
+                "title": "SonicFlow: Toggle Vibe Mode"
+            },
+            {
+                "command": "sonicflow.exportPlaylists",
+                "title": "SonicFlow: Export Playlists"
+            },
+            {
+                "command": "sonicflow.importPlaylists",
+                "title": "SonicFlow: Import Playlists"
+            },
+            {
+                "command": "sonicflow.toggleShuffle",
+                "title": "SonicFlow: Toggle Shuffle"
+            },
+            {
+                "command": "sonicflow.toggleRepeat",
+                "title": "SonicFlow: Toggle Repeat"
+            },
+            {
+                "command": "sonicflow.setVolume",
+                "title": "SonicFlow: Set Volume"
+            },
+            {
+                "command": "sonicflow.showQueue",
+                "title": "SonicFlow: Show Queue"
+            },
+            {
+                "command": "sonicflow.clearCache",
+                "title": "SonicFlow: Clear Cache"
+            }
+        ],
+        "keybindings": [
+            {
+                "command": "sonicflow.playPause",
+                "key": "ctrl+alt+p",
+                "mac": "cmd+alt+p"
+            },
+            {
+                "command": "sonicflow.next",
+                "key": "ctrl+alt+right",
+                "mac": "cmd+alt+right"
+            },
+            {
+                "command": "sonicflow.previous",
+                "key": "ctrl+alt+left",
+                "mac": "cmd+alt+left"
+            },
+            {
+                "command": "sonicflow.openPlayer",
+                "key": "ctrl+alt+m",
+                "mac": "cmd+alt+m"
+            }
+        ],
+        "viewsContainers": {
+            "activitybar": [
+                {
+                    "id": "sonicflow-sidebar",
+                    "title": "SonicFlow",
+                    "icon": "media/icons/sonicflow.svg"
+                }
+            ]
+        },
+        "views": {
+            "sonicflow-sidebar": [
+                {
+                    "id": "sonicflow.nowPlaying",
+                    "name": "Now Playing"
+                },
+                {
+                    "id": "sonicflow.playlists",
+                    "name": "Playlists"
+                },
+                {
+                    "id": "sonicflow.queue",
+                    "name": "Queue"
+                }
+            ]
+        },
+        "configuration": {
+            "title": "SonicFlow",
+            "properties": {
+                "sonicflow.defaultVolume": {
+                    "type": "number",
+                    "default": 70,
+                    "minimum": 0,
+                    "maximum": 100,
+                    "description": "Default volume level (0-100)"
+                },
+                "sonicflow.youtubeApiKey": {
+                    "type": "string",
+                    "default": "",
+                    "description": "YouTube Data API key for search functionality"
+                },
+                "sonicflow.maxCacheSize": {
+                    "type": "number",
+                    "default": 100,
+                    "description": "Maximum number of cached items in memory"
+                },
+                "sonicflow.autoVibeMode": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Automatically suggest similar tracks when queue is empty"
+                },
+                "sonicflow.theme": {
+                    "type": "string",
+                    "enum": [
+                        "aurora",
+                        "neon-midnight",
+                        "cyber-sunset",
+                        "deep-ocean"
+                    ],
+                    "default": "aurora",
+                    "description": "Player UI theme"
+                },
+                "sonicflow.musicDirectories": {
+                    "type": "array",
+                    "default": [],
+                    "description": "Default directories to scan for local music files"
+                },
+                "sonicflow.playlistStoragePath": {
+                    "type": "string",
+                    "default": "",
+                    "description": "Custom path for playlist storage"
+                }
+            }
+        }
+    },
+    "scripts": {
+        "vscode:prepublish": "npm run package",
+        "compile": "webpack",
+        "watch": "webpack --watch",
+        "package": "webpack --mode production --devtool hidden-source-map",
+        "lint": "eslint src --ext ts",
+        "test": "node ./out/test/runTest.js"
+    },
+    "devDependencies": {
+        "@types/node": "^20.10.0",
+        "@types/vscode": "^1.85.0",
+        "@typescript-eslint/eslint-plugin": "^6.13.0",
+        "@typescript-eslint/parser": "^6.13.0",
+        "eslint": "^8.54.0",
+        "ts-loader": "^9.5.1",
+        "typescript": "^5.3.2",
+        "webpack": "^5.89.0",
+        "webpack-cli": "^5.1.4",
+        "copy-webpack-plugin": "^11.0.0"
+    },
+    "dependencies": {
+        "music-metadata": "^7.14.0",
+        "ytdl-core": "^4.11.5",
+        "ytsr": "^3.8.4",
+        "node-cache": "^5.1.2"
+    }
+}
